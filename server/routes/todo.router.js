@@ -39,7 +39,7 @@ VALUES ($1,$2);
             res.sendStatus(201);
         })
         .catch(error => {
-            console.log(`Error adding new koala`, error);
+            console.log(`Error adding task`, error);
             res.sendStatus(500);
         });
 })
@@ -59,7 +59,25 @@ todoRouter.put('/:id', (req,res) =>{
         res.sendStatus(500);
     })
 });
+// DELETE
 
+todo.delete('/:id', (req, res) => {
+    console.log('task deleted', req.params.id);
+    let id = req.params.id;
+    const queryText = `
+    DELETE FROM "todo"
+    WHERE "id" = $1;
+    `;
 
+    const values = [id];
+
+    pool.query(queryText,values)
+    .then(result => {
+        res.sendStatus(204);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+});
 
 module.exports = todoRouter;

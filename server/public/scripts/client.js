@@ -17,8 +17,11 @@ function clickListeners() {
             status: status
         };
         console.log(taskToSend);
-
-    })
+        saveTask(taskToSend);
+    });
+    $( 'body' ).on( 'click','.taskComplete',updateStatus);
+  // click-listener for the delete button ot call function
+  $('body').on('click', '.deleteBtn', deleteTask);
 };
 
 // here is the GET
@@ -92,11 +95,22 @@ function updateStatus() {
         getTask();
     }).catch(function (err) {
         console.log(err);
-        
+
     })
 }
 
 function deleteTask(removeTask) {
     console.log('in deleteTask', removeTask);
-    let id = $(this)
+    let id = $(this).closest('tr').data('id');
+    console.log(id);
+    $.ajax({
+        url: `/todo/${id}`,
+        method: 'DELETE',
+    }).then(function (response) {
+        console.log('task has been deleted');
+    }).catch(function (err) {
+        console.log(err);
+
+    })
+
 }
