@@ -4,7 +4,7 @@ const pg = require('pg');
 const Pool = pg.Pool;
 const pool = new Pool({
     //config to talk to Postgres!
-    database: 'weekend-to-do-app',
+    database: 'weekend_to_do_app',
     host: 'localhost',
     port: 5432,
     max: 10, //max number of connections

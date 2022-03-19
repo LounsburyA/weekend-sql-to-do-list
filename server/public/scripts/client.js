@@ -5,3 +5,16 @@ $(document).ready(function () {
     
     
 });
+function clickListeners(){
+    $('#addTask').on ('click'function () {
+        console.log('in addTask on click');
+        
+        let task = $('#taskIN').val();
+        let status = $('#taskStatus').val();
+        
+        let taskToSend = {
+            task: task,
+            status: status
+        }
+    })
+}
