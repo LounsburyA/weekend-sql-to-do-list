@@ -20,16 +20,21 @@ function clickListeners() {
     })
 };
 
+// here is the GET
+
 function getTask() {
     console.log('in getTask');
     $.ajax({
         method: 'GET',
         url: '/todo'
+    }).then(function(task){
+        renderTask(task);
+    }).catch(function(err) {
+        console.log(err);  
     })
-
 }
 
-
+// here is the render
 function renderTask(listOfTasks) {
     console.log('in renderTask', listOfTasks);
     $('#viewTasks').empty()
@@ -58,3 +63,5 @@ function renderTask(listOfTasks) {
         }
     }
 }
+
+// here is the POST
