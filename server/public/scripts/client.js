@@ -2,11 +2,12 @@ console.log('JS works');
 
 $(document).ready(function () {
     console.log('JQ works');
-
-
+    clickListeners()
 });
+
+
 function clickListeners() {
-    $('#addTask').on('click',function() {
+    $('#addTask').on('click', function () {
         console.log('in addTask on click');
 
         let task = $('#taskIN').val();
@@ -27,10 +28,10 @@ function getTask() {
     $.ajax({
         method: 'GET',
         url: '/todo'
-    }).then(function(task){
+    }).then(function (task) {
         renderTask(task);
-    }).catch(function(err) {
-        console.log(err);  
+    }).catch(function (err) {
+        console.log(err);
     })
 }
 
@@ -65,3 +66,37 @@ function renderTask(listOfTasks) {
 }
 
 // here is the POST
+function saveTask(newTask) {
+    console.log('in saveTask', newTask);
+    $.ajax({
+        url: '/todo',
+        method: 'POST',
+        data: newTask
+    }).then(function (response) {
+        console.log(response);
+        getTask(response);
+    }).catch(function (error) {
+        console.log('error in client.js post', error);
+    })
+}
+// here is the PUT
+function updateStatus() {
+    console.log('update status clicked');
+    let taskId = $(this).closest('tr').data('id')
+    console.log('status updated id', taskID);
+    $.ajax({
+        url: `/todo/${taskId}`,
+        method: 'PUT',
+    }).then(function (response) {
+        console.log('status changed');
+        getTask();
+    }).catch(function (err) {
+        console.log(err);
+        
+    })
+}
+
+function deleteTask(removeTask) {
+    console.log('in deleteTask', removeTask);
+    let id = $(this)
+}
