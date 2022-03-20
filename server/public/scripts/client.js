@@ -56,7 +56,7 @@ function renderTask(listOfTasks) {
             </tr>
             `);
         }
-        if (task.status === false) {
+        else {
             $('#viewTasks').append(`
             <tr data-id=${task.id}>
                 <td>${task.task}</td>
@@ -81,6 +81,7 @@ function saveTask(newTask) {
     }).then(function (response) {
         console.log(response);
         getTask(response);
+        $('#taskIn').val('')
     }).catch(function (error) {
         console.log('error in client.js post', error);
     })
