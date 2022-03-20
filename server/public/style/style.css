@@ -1,7 +1,66 @@
-
+tbody{
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 30px;color:dimgray !important;
+    
+}
+#addTask{
+    color: dimgray !important;
+}
 .green {
-    background-color: lawngreen;
+    background-color: lawngreen !important;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 30px;color:dimgray
 }
 .taco{
-    background-color: darksalmon;
+    background-color: darksalmon !important;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 30px;color:dimgray
+}
+
+
+.deleteBtn {
+    background-color: darksalmon !important;
+    font-family: 'Just Another Hand', sans-serif; 
+    font-size: 30px;color:dimgray;
+    border-radius: 8px;
+}
+.taskComplete{
+    background-color: lawngreen !important;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 30px;color:dimgray;
+    border-radius: 8px;
+}
+h1{
+    text-justify: auto;
+    text-align: center;
+    border-bottom: 2px solid black;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 100px;font-weight: bold;color:dimgray;
+}
+h2{
+    text-justify: auto;
+    text-align: center;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 60px;color:dimgray;
+}
+#taskToAdd{
+    text-justify: auto;
+    text-align: center;
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 40px;color:dimgray;
+}
+th{
+    font-family: 'Just Another Hand', sans-serif;
+    font-size: 40px;color:dimgray;
+}
+body{
+    background-color: bisque;
+}
+#addTask{
+    background-color: aqua;
+    border-radius: 8px;
+}
+#taskIn{
+    background-color: aquamarine;
+    border-radius: 8px;
 }

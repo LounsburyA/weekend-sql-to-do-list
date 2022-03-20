@@ -2,7 +2,7 @@ const express = require('express');
 const todoRouter = express.Router();
 const pool = require('../modules/pool.js');
 
-
+//  GET IS HERE
 todoRouter.get('/', (req, res) => {
     console.log('In router GET');
     let queryText = `
@@ -17,7 +17,7 @@ todoRouter.get('/', (req, res) => {
         res.sendStatus(500);
     })
 });
-
+// POST IS HERE
 todoRouter.post('/', (req, res) => {
     let newTask = req.body;
     console.log('adding task', newTask);
@@ -39,6 +39,7 @@ VALUES ($1,$2);
             res.sendStatus(500);
         });
 })
+//PUT IS HERE
 todoRouter.put('/:id', (req,res) =>{
     console.log(req.params.id);
     let queryText =
@@ -55,7 +56,7 @@ todoRouter.put('/:id', (req,res) =>{
         res.sendStatus(500);
     })
 });
-// DELETE
+// DELETE IS HERE
 
 todoRouter.delete('/:id', (req, res) => {
     console.log('task deleted', req.params.id);
