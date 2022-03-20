@@ -55,6 +55,7 @@ th{
 }
 body{
     background-color: bisque;
+    padding: 15px;
 }
 #addTask{
     background-color: aqua;
