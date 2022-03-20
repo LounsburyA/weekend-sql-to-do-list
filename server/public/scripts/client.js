@@ -2,7 +2,8 @@ console.log('JS works');
 
 $(document).ready(function () {
     console.log('JQ works');
-    clickListeners()
+    clickListeners();
+getTask();
 });
 
 
@@ -10,18 +11,18 @@ function clickListeners() {
     $('#addTask').on('click', function () {
         console.log('in addTask on click');
 
-        let task = $('#taskIN').val();
-        let status = $('#taskStatus').val();
+        let task = $('#taskIn').val();
+        
         let taskToSend = {
             task: task,
-            status: status
+            status: false
         };
         console.log(taskToSend);
         saveTask(taskToSend);
     });
-    $( 'body' ).on( 'click','.taskComplete',updateStatus);
-  // click-listener for the delete button ot call function
-  $('body').on('click', '.deleteBtn', deleteTask);
+    $('#viewTasks').on('click', '.taskComplete', updateStatus);
+
+    $('#viewTasks').on('click', '.deleteBtn', deleteTask);
 };
 
 // here is the GET
@@ -31,8 +32,8 @@ function getTask() {
     $.ajax({
         method: 'GET',
         url: '/todo'
-    }).then(function (task) {
-        renderTask(task);
+    }).then(function (response) {
+        renderTask(response);
     }).catch(function (err) {
         console.log(err);
     })
@@ -45,24 +46,26 @@ function renderTask(listOfTasks) {
     for (let i = 0; i < listOfTasks.length; i++) {
         let task = listOfTasks[i];
         if (task.status === true) {
-            $('$viewTasks').append(`
+            $('#viewTasks').append(`
             <tr data-id=${task.id}>
-            <td>${task.task}</td>
-            <td class = "green">${task.status}</td>
-            <td>
-            <button class="deleteBtn">Remove task</button>
-            </td>
+                <td>${task.task}</td>
+                <td class = "green">${task.status}</td>
+                <td>
+                <button class="deleteBtn">Remove task</button>
+                </td>
+            </tr>
             `);
         }
-        else {
-            $('$viewTasks').append(`
+        if (task.status === false) {
+            $('#viewTasks').append(`
             <tr data-id=${task.id}>
-            <td>${task.task}</td>
-            <td class = "red">${task.status}</td>
-            <td>
-            <button class="deleteBtn">Remove task</button>
-            <button class="taskComplete">Task Complete</button>
-            </td>
+                <td>${task.task}</td>
+                <td class = "taco">${task.status}</td>
+                <td>
+                <button class="deleteBtn">Remove task</button>
+                <button class="taskComplete">Task Complete</button>
+                </td>
+            </tr>
             `);
         }
     }
@@ -74,7 +77,7 @@ function saveTask(newTask) {
     $.ajax({
         url: '/todo',
         method: 'POST',
-        data: newTask
+        data: newTask,
     }).then(function (response) {
         console.log(response);
         getTask(response);
@@ -85,11 +88,12 @@ function saveTask(newTask) {
 // here is the PUT
 function updateStatus() {
     console.log('update status clicked');
-    let taskId = $(this).closest('tr').data('id')
-    console.log('status updated id', taskID);
+    let taskId = $(this).closest('tr').data('id');
+    console.log('status updated', taskId);
     $.ajax({
         url: `/todo/${taskId}`,
-        method: 'PUT',
+        method: 'PUT'
+       
     }).then(function (response) {
         console.log('status changed');
         getTask();
@@ -107,7 +111,8 @@ function deleteTask(removeTask) {
         url: `/todo/${id}`,
         method: 'DELETE',
     }).then(function (response) {
-        console.log('task has been deleted');
+        console.log('task has been deleted', id);
+        getTask();
     }).catch(function (err) {
         console.log(err);
 

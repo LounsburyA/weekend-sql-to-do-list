@@ -19,20 +19,16 @@ todoRouter.get('/', (req, res) => {
 });
 
 todoRouter.post('/', (req, res) => {
-    let newTask = req.body
+    let newTask = req.body;
     console.log('adding task', newTask);
-    if (newTask.status.toLowerCase() === 'yes') {
-        newTask.status = true;
-    } else if (newTask.status.toLowerCase() === 'no') {
-        newTask.status = false;
-    } else { alert('enter yes or no') }
+   
     let queryText = `
 INSERT INTO "todo"
 ("task", "status")
 VALUES ($1,$2);
 `;
 
-    let values = [newTask.task, newTask.status]
+    let values = [newTask.task, false];
 
     pool.query(queryText, values)
         .then(result => {
@@ -45,9 +41,9 @@ VALUES ($1,$2);
 })
 todoRouter.put('/:id', (req,res) =>{
     console.log(req.params.id);
-    let queryText 
+    let queryText =
    ` UPDATE "todo"
-    SET "status" = TRUE
+    SET "status" = true
     WHERE "id" = $1;
     `;
     const values = [req.params.id];
@@ -61,7 +57,7 @@ todoRouter.put('/:id', (req,res) =>{
 });
 // DELETE
 
-todo.delete('/:id', (req, res) => {
+todoRouter.delete('/:id', (req, res) => {
     console.log('task deleted', req.params.id);
     let id = req.params.id;
     const queryText = `
